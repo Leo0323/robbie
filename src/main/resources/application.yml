@@ -1,0 +1,42 @@
+#spring.application.name=iseeyou
+#server.servlet.context-path=/robert
+#server.port=0820
+server:
+  tomcat:
+    max-swallow-size: -1
+    max-http-form-post-size: 100MB
+  servlet:
+    context-path: /robert
+    session:
+      cookie:
+        same-site: lax
+        secure: false
+  port: 820
+spring:
+  web:
+    cors:
+      allowed-origins: "*"
+      allowed-methods: "*"
+  # ????????
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ddd?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: tt776838
+  data:
+    redis:
+      port: 6379
+      host: localhost # ??Redis??
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: false # ??????????userName ? ???userName
+#config update category
+file:
+  upload-path: D:\Java\iseeyou\src\main\resources\static\Percy
+
+
