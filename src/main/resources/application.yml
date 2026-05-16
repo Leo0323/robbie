@@ -39,10 +39,16 @@ spring:
   data:
     redis:
       host: magnetic-aphid-126426.upstash.io
-      port: 6380
+      port: 6379
       password: gQAAAAAAAe3aAAIgcDE0NzkyOGY0NmM1MzI0MjIzOTA3NjBmNTdhNTY0ZGQwZA
       ssl:
         enabled: true
+      timeout: 60000
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
   configuration:
