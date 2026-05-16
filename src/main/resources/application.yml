@@ -22,15 +22,27 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/ddd?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false
+#    username: root
+#    password: tt776838
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ddd?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://junction.proxy.rlwy.net:22844/railway?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false
     username: root
-    password: tt776838
+    password: ZWsaZpCOlmHzgXbHlOuxfCxvdPbRskYc
+#  data:
+#    redis:
+#      port: 6379
+#      host: localhost # ??Redis??
   data:
     redis:
-      port: 6379
-      host: localhost # ??Redis??
+      host: magnetic-aphid-126426.upstash.io
+      port: 6380
+      password: gQAAAAAAAe3aAAIgcDE0NzkyOGY0NmM1MzI0MjIzOTA3NjBmNTdhNTY0ZGQwZA
+      ssl:
+        enabled: true
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
   configuration:
