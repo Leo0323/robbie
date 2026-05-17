@@ -78,7 +78,7 @@ public class UserController {
         String url = "https://github.com/login/oauth/authorize"
                 + "?client_id=" + clientId
                 + "&scope=user"
-                + "&redirect_url=http://localhost:820/robert/oauth/github/callback";
+                + "&redirect_url=https://robbie-3fob.onrender.com/oauth/github/callback";
         response.sendRedirect(url);
     }
 //github回调

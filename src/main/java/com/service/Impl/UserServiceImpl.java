@@ -182,7 +182,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, Users> implements U
                 "login:token:" + token, user, 30, TimeUnit.MINUTES
         );
         // ========= 4. 返回登录用户 =========
-        String redirectUrl = "http://127.0.0.1:8848/ondary-fixed-navigation-master/index.html"
+        String redirectUrl = "https://leo0323.github.io/pretty-percy/index.html"
                 + "?token=" + token
                 + "&userId=" + user.getUserId()
                 + "&username=" + user.getUserName();
