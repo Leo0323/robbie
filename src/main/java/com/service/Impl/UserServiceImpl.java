@@ -224,11 +224,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, Users> implements U
         return getLoginUser(token);
     }
 
+    // ... existing code ...
     public String upadateUser(Users users, MultipartFile file, HttpServletRequest request) throws  IOException {
         Users user = (Users) request.getAttribute("loginUser");
         if (user.getUserId() != users.getUserId()) {
             return "Illegal";
         }
+
+        // 获取当前token用于后续更新Redis
+        String auth = request.getHeader("Authorization");
+        String token = auth.startsWith("Bearer ") ? auth.substring(7) : auth;
+        String redisKey = "login:token:" + token;
+
         // 有传文件才更新头像
         if (file != null && !file.isEmpty()) {
             String ossUrl = updateBio(file, request);
@@ -243,19 +250,34 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, Users> implements U
         System.out.println( user.toString());
         this.updateById(user);  // 用updateById就够了，不需要UpdateWrapper
 
+        // 更新Redis中的用户数据
+        redisTemplate.opsForValue().set(redisKey, user, 30, TimeUnit.MINUTES);
+
         return "Record updated successfully.";
     }
     public String updateBio(MultipartFile file, HttpServletRequest request) throws IOException {
         // 2. 检查用户
         Users user = (Users) request.getAttribute("loginUser");
+
+        // 获取当前token用于后续更新Redis
+        String auth = request.getHeader("Authorization");
+        String token = auth.startsWith("Bearer ") ? auth.substring(7) : auth;
+        String redisKey = "login:token:" + token;
+
         String uuid = UUID.randomUUID().toString();
         String suffix = ".png";
         String finalFileName = uuid + suffix;
         String ossUrl = UploadUtil.uploadFile(file, uuid);
         user.setAvatar(ossUrl);
-        this.updateById(user);
+        boolean updateResult = this.updateById(user);
+        System.out.println("更新结果=" + updateResult + " ossUrl=" + ossUrl + " userId=" + user.getUserId());
+        // 更新Redis中的用户数据
+        redisTemplate.opsForValue().set(redisKey, user, 30, TimeUnit.MINUTES);
+
         return ossUrl;
     }
+// ... existing code ...
+
 // ... existing code ...
 
 
