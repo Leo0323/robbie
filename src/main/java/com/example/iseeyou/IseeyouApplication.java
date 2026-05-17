@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.contro", "com.service", "com.config","com.example.iseeyou","com.handler"})
+@ComponentScan(basePackages = {"com.contro", "com.service", "com.config","com.example.iseeyou","com.handler","com.Util"})
 @MapperScan("com.mapper")
 public class IseeyouApplication {
     public static void main(String[] args) {
