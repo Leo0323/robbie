@@ -1,4 +1,5 @@
 package com.handler;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -11,7 +12,8 @@ public class GlobalExceptionHandler {
 
     // 核心注解2：捕获所有的RuntimeException异常（你抛出的就是这个）
     @ExceptionHandler(RuntimeException.class)
-    public Map<String, Object> handleRuntimeException(RuntimeException e) {
+    public Map<String, Object> handleRuntimeException(RuntimeException e, HttpServletResponse response) {
+        response.setContentType("application/json;charset=UTF-8");
         Map<String, Object> result = new HashMap<>();
         result.put("code", 500); // 业务失败状态码
         result.put("msg", e.getMessage()); // 你的自定义提示文字（用户不存在/admin）

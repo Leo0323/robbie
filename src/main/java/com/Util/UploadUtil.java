@@ -3,21 +3,34 @@ package com.Util;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 
+@Component  // ← 必须加，让Spring管理这个类
 public class UploadUtil {
+
     public static final String DOMIN = "https://robert-plant.oss-cn-shenzhen.aliyuncs.com//";
-        private static final String ENDPOINT = "https://oss-cn-shenzhen.aliyuncs.com";
-        @Value("${aliyun.accessKeyId}")
-        private static  String ACCESS_KEY_ID;
-        @Value("${aliyun.accessKeySecret}")
-        private static String ACCESS_KEY_SECRET;
-        private static final String BUCKET_NAME = "robert-plant";
-        private static final long EXPIRE_TIME = 3600 * 1000; // 1 小时
+    private static final String ENDPOINT = "https://oss-cn-shenzhen.aliyuncs.com";
+    private static final String BUCKET_NAME = "robert-plant";
+    private static final long EXPIRE_TIME = 3600 * 1000;
+
+    private static String ACCESS_KEY_ID;
+    private static String ACCESS_KEY_SECRET;
+
+    // ← 用setter方法注入static字段
+    @Value("${aliyun.accessKeyId}")
+    public void setAccessKeyId(String accessKeyId) {
+        ACCESS_KEY_ID = accessKeyId;
+    }
+
+    @Value("${aliyun.accessKeySecret}")
+    public void setAccessKeySecret(String accessKeySecret) {
+        ACCESS_KEY_SECRET = accessKeySecret;
+    }
 
         // ===== 无参方法，返回带签名 URL =====
         public static String getSignedUrl(String ossUrl) {
