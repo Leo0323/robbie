@@ -23,7 +23,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "/oauth/github/callback",        // 精确放过 callback
                         "/oauth/github/login" ,         // 顺便放过登录入口（可选）
                         "/register",
-                        "/LoginOut"
+                        "/LoginOut",
+                        "/debug/env"
                 );
     }
 }
