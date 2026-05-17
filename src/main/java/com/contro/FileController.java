@@ -96,5 +96,14 @@ public class FileController {
     public String deleteFileBy2(@PathVariable("id") int id,HttpServletRequest  request) {
         return fileService.deleteByIds(id, request);
     }
+    @GetMapping("/debug/env")
+    public Map<String, String> debugEnv() {
+        Map<String, String> map = new HashMap<>();
+        map.put("ALIYUN_ACCESS_KEY_ID", System.getenv("ALIYUN_ACCESS_KEY_ID"));
+        map.put("ALIYUN_ACCESS_KEY_SECRET", System.getenv("ALIYUN_ACCESS_KEY_SECRET"));
+        for (String key : map.keySet())
+            System.out.println(key + ": " + map.get(key));
+        return map;
+    }
 
 }

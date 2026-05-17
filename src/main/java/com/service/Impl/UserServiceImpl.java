@@ -251,8 +251,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, Users> implements U
         String uuid = UUID.randomUUID().toString();
         String suffix = ".png";
         String finalFileName = uuid + suffix;
-        UploadUtil uploadUtil = new UploadUtil();
-        String ossUrl = uploadUtil.uploadFile(file, uuid);
+        String ossUrl = UploadUtil.uploadFile(file, uuid);
         user.setAvatar(ossUrl);
         this.updateById(user);
         return ossUrl;
