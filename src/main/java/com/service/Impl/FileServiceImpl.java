@@ -362,7 +362,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileInfo> implement
     public String deleteByIds(int id, HttpServletRequest request) {
         Users loginUser = (Users) request.getAttribute("loginUser");
         FileInfo fileInfo = fileMapper.selectById(id);
-        if (!loginUser.getUserName().equals(fileInfo.getUserName())) {
+        if (loginUser.getUserId() != fileInfo.getUserName()) {
             return "无权限删除此文件";
         }
         fileMapper.deleteById(id);

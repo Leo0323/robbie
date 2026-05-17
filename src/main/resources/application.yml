@@ -50,5 +50,8 @@ mybatis-plus:
 #config update category
 file:
   upload-path: D:\Java\iseeyou\src\main\resources\static\Percy
+aliyun:
+  accessKeyId: ${ALIYUN_ACCESS_KEY_ID}
+  accessKeySecret: ${ALIYUN_ACCESS_KEY_SECRET}
 
 
