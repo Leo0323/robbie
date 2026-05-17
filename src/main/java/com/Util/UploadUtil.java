@@ -25,11 +25,13 @@ public class UploadUtil {
     @Value("${aliyun.accessKeyId}")
     public void setAccessKeyId(String accessKeyId) {
         ACCESS_KEY_ID = accessKeyId;
+        System.out.println("注入accessKeyId=" + accessKeyId); // 加这行
     }
 
     @Value("${aliyun.accessKeySecret}")
     public void setAccessKeySecret(String accessKeySecret) {
         ACCESS_KEY_SECRET = accessKeySecret;
+        System.out.println("注入accessKeyId=" + accessKeySecret); // 加这行
     }
 
         // ===== 无参方法，返回带签名 URL =====
