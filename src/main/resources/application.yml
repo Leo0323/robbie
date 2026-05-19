@@ -31,7 +31,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://ballast.proxy.rlwy.net:30934/railway?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false
     username: root
-    password: JQNALleHOdZLmvqFDTBgWosebWTzFHJ
+    password: JQNALleHOdZLmvqFDTBgWosebWTzFHJn
 #  data:
 #    redis:
 #      port: 6379
