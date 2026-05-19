@@ -29,9 +29,9 @@ spring:
 #    password: tt776838
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://junction.proxy.rlwy.net:22844/railway?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://ballast.proxy.rlwy.net:30934/railway?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false
     username: root
-    password: ZWsaZpCOlmHzgXbHlOuxfCxvdPbRskYc
+    password: JQNALleHOdZLmvqFDTBgWosebWTzFHJ
 #  data:
 #    redis:
 #      port: 6379
