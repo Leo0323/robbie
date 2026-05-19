@@ -1,6 +1,7 @@
 package com.service.Impl;
 
 
+import com.Util.PasswordUtil;
 import com.Util.UploadUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
@@ -60,6 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, Users> implements U
         return this.page(page).getRecords();
     }
 
+
     //注册
     @Override
     public String signup(RegisterDTO users){
@@ -74,7 +76,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, Users> implements U
         if (!password.equals(confirmPwd)){
             return "密码不一致";
         }
-        Users users1 = new Users(username,password,email,sex,null);
+        String encryptedPassword = PasswordUtil.encode(password);
+        Users users1 = new Users(username, encryptedPassword, email, sex, null);
         this.save(users1);
         return "注册成功";
     }
@@ -84,18 +87,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, Users> implements U
         String password = users.getPassword();
         String token = UUID.randomUUID().toString();
         QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
-        queryWrapper.allEq(Map.of("username", userName, "password", password));
-        if (this.list(queryWrapper).size() > 0) {
-            Users users1 =this.list(queryWrapper).get(0);
-            users1.getUserName();
-            redisTemplate.opsForValue().set(
-                    "login:token:" + token,
-                    users1,
-                    30,
-                    TimeUnit.MINUTES
-            );
-            System.out.println("登录成功"+users1.getUserId());
-            return new UsersDto(users1.getUserId(),users1.getUserName(), token);
+        queryWrapper.eq("username", userName);
+        List<Users> userList = this.list(queryWrapper);
+
+        if (userList.size() > 0) {
+            Users users1 = userList.get(0);
+            if (PasswordUtil.matches(password, users1.getPassword())) {
+                users1.getUserName();
+                redisTemplate.opsForValue().set(
+                        "login:token:" + token,
+                        users1,
+                        30,
+                        TimeUnit.MINUTES
+                );
+                System.out.println("登录成功" + users1.getUserId());
+                return new UsersDto(users1.getUserId(), users1.getUserName(), token);
+            }
         }
         return null;
     }
@@ -223,8 +230,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, Users> implements U
         }
         return getLoginUser(token);
     }
-
-    // ... existing code ...
     public String upadateUser(Users users, MultipartFile file, HttpServletRequest request) throws  IOException {
         Users user = (Users) request.getAttribute("loginUser");
         if (user.getUserId() != users.getUserId()) {
@@ -245,7 +250,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, Users> implements U
         if (users.getEmail() != null)    user.setEmail(users.getEmail());
         if (users.getSex() != null)      user.setSex(users.getSex());
         if (users.getUserName() != null) user.setUserName(users.getUserName());
-        if (users.getPassword() != null) user.setPassword(users.getPassword());
+        if (users.getPassword() != null) {
+            String encryptedPassword = PasswordUtil.encode(users.getPassword());
+            user.setPassword(encryptedPassword);
+        }
         if (users.getBio() != null)  user.setBio(users.getBio());
         System.out.println( user.toString());
         this.updateById(user);  // 用updateById就够了，不需要UpdateWrapper
